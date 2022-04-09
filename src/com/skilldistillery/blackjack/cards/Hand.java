@@ -22,6 +22,12 @@ public abstract class Hand {
 	public String toString() {
 		return cards.toString();
 	}
+	public List<Card> getCards() {
+		return cards;
+	}
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
 	
 		
 	

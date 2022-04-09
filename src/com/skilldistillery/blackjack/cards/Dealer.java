@@ -27,7 +27,6 @@ public class Dealer extends Player{
 	public void drawCard() {
 		Card card1 = deck.dealCard();
 		Card card2 = deck.dealCard();
-		System.out.println("Here are your two cards dealer: " + card1 + " " + card2);
 
 	}
 
