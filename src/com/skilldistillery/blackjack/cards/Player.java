@@ -2,20 +2,24 @@ package com.skilldistillery.blackjack.cards;
 
 public class Player {
 	
-	Hand playerHand = new BlackjackHand();
+	private Hand playerHand = new BlackjackHand();
 	
-	
-
 	public void addCardToHand(Card card) {
-		playerHand.addCard(card);
+		getPlayerHand().addCard(card);
 	}
 	public int getHandValue(){
-		return playerHand.getHandValue();
+		return getPlayerHand().getHandValue();
 	}
 
 
 	public Hand getHand(){
-		return playerHand;
+		return getPlayerHand();
+	}
+	public BlackjackHand getPlayerHand() {
+		return (BlackjackHand) playerHand;
+	}
+	public void setPlayerHand(Hand playerHand) {
+		this.playerHand = playerHand;
 	}
 	
 

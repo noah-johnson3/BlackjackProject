@@ -2,10 +2,9 @@ package com.skilldistillery.blackjack.cards;
 
 import java.util.Collections;
 
-public class Dealer {
+public class Dealer extends Player{
 
 	Deck deck = new Deck();
-	Hand dealerHand = new BlackjackHand();
 	
 	
 
@@ -13,20 +12,19 @@ public class Dealer {
 		deck.shuffle();
 	}
 
-	public void addCardToHand(Card card) {
-		dealerHand.addCard(card);
-	}
-	public int getHandValue(){
-		return dealerHand.getHandValue();
-				
-	}
+//	public void addCardToHand(Card card) {
+//		dealerHand.addCard(card);
+//	}
+//	public int getHandValue(){
+//		return dealerHand.getHandValue();
+//				
+//	}
 
 	public Card dealCard() {
 		return deck.dealCard();
 	}
 
 	public void drawCard() {
-		deck.shuffle();
 		Card card1 = deck.dealCard();
 		Card card2 = deck.dealCard();
 		System.out.println("Here are your two cards dealer: " + card1 + " " + card2);
@@ -38,7 +36,12 @@ public class Dealer {
 		return deck;
 	}
 	public Hand getHand(){
-		return dealerHand;
+		return getPlayerHand();
+	}
+	public void dealerHand() {
+		for (int i = 1; i < getPlayerHand().cards.size(); i++) {
+			System.out.println("Dealer has : " + getPlayerHand().cards.get(i));
+		}
 	}
 
 }
