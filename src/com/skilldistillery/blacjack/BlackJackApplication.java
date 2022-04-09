@@ -2,6 +2,7 @@ package com.skilldistillery.blacjack;
 
 import java.util.Scanner;
 
+import com.skilldistillery.blackjack.cards.BlackjackHand;
 import com.skilldistillery.blackjack.cards.Dealer;
 import com.skilldistillery.blackjack.cards.Player;
 
@@ -17,8 +18,7 @@ public class BlackJackApplication {
 	}
 
 	public void run() {
-		boolean keepGoing = true;
-		greeting();
+6		greeting();
 		setup();
 
 	}
@@ -28,43 +28,42 @@ public class BlackJackApplication {
 	}
 
 	public void setup() {
-		dealer.shuffle();
-
-		player.addCardToHand(dealer.dealCard());
-		player.addCardToHand(dealer.dealCard());
-
-		dealer.addCardToHand(dealer.dealCard());
-		dealer.addCardToHand(dealer.dealCard());
+		startGame();
 
 		System.out.println("player : " + player.getHand());
 		System.out.println("dealer : " + "[face-down, " + dealer.getHand().getCards().get(1) + "]");
 
-		if (player.getHandValue() == 21) {
-			player.getPlayerHand().isBlackjack();
-			System.out.println("You got Blackjack! You win!");
+		if (isBlackJack(player)) {
 			playAgain();
-			System.exit(0);
 		}
 
-		if (dealer.getHandValue() == 21) {
-			dealer.getPlayerHand().isBlackjack();
-			System.out.println("The dealer got Blackjack! They win!");
+		if (isBlackJack(dealer)) {
 			playAgain();
-			System.exit(0);
 		}
-
-		player.getHandValue();
+		cardTotals();
 		playerTurn();
+		dealerTurn();
+		System.out.println("dealer : " + dealer.getHand());
+		System.out.println("Dealer total : " + dealer.getHandValue());
 		if (player.getPlayerHand().isBust()) {
 			System.out.println("You busted!");
 			playAgain();
+			
+			System.out.println("Dealer total : " + dealer.getHandValue());
+			dealerTurn();
 		}
-
-//		System.out.println("dealer : " + dealer.getHand());
-		dealer.getHandValue();
-		dealerTurn();
 		if (dealer.getPlayerHand().isBust()) {
 			System.out.println("Dealer busted!");
+			playAgain();
+		}
+		if (player.getHandValue() > dealer.getHandValue()) {
+			System.out.println("player wins!");
+			playAgain();
+		} else if (dealer.getHandValue() > player.getHandValue()) {
+			System.out.println("Dealer wins!");
+			playAgain();
+		} else {
+			System.out.println("Its a draw!");
 			playAgain();
 		}
 	}
@@ -79,16 +78,14 @@ public class BlackJackApplication {
 			playerChoice = sc.nextLine();
 			if (playerChoice.equalsIgnoreCase("yes")) {
 
-				System.out.println(player.getPlayerHand());
 				player.addCardToHand(dealer.dealCard());
-				System.out.println(player.getPlayerHand());
+				cardTotals();
+				System.out.println("Player has : " + player.getPlayerHand());
 				if (player.getPlayerHand().isBust()) {
 
 					keepGoing = false;
 				}
 			} else if (playerChoice.equalsIgnoreCase("no")) {
-				
-				
 				keepGoing = false;
 				break;
 			}
@@ -98,10 +95,9 @@ public class BlackJackApplication {
 
 	public void dealerTurn() {
 		boolean keepGoing = true;
-		String dealerChoice = null;
 
 		while (keepGoing) {
-			if (dealer.getHandValue() < 17 || dealer.getHandValue() < player.getHandValue()) {
+			if (17 > dealer.getHandValue()) {
 				dealer.addCardToHand(dealer.dealCard());
 				dealer.dealerHand();
 				keepGoing = false;
@@ -115,7 +111,7 @@ public class BlackJackApplication {
 
 	public void playAgain() {
 		System.out.println("Play again?");
-		String userInput = sc.nextLine();
+		String userInput = scannerNextLine();
 		if (userInput.equalsIgnoreCase("no")) {
 			System.exit(0);
 		} else {
@@ -124,5 +120,30 @@ public class BlackJackApplication {
 		}
 
 	}
+	public String scannerNextLine() {
+		String input = sc.nextLine();
+		sc.nextLine();
+		return input;
+	}
+	public void startGame() {
+		dealer.shuffle();
 
+		player.addCardToHand(dealer.dealCard());
+		player.addCardToHand(dealer.dealCard());
+
+		dealer.addCardToHand(dealer.dealCard());
+		dealer.addCardToHand(dealer.dealCard());
+	}
+	public boolean isBlackJack(Player player) {
+		if (player.getPlayerHand().isBlackjack() == 21) {
+			System.out.println(player.getClass().getSimpleName() + " got Black Jack! " + player.getClass().getSimpleName() + " wins!");
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public void cardTotals() {
+		System.out.println("Player total : " + player.getHandValue());
+		System.out.println("Dealer total : " + dealer.getHandValue());
+	}
 }
