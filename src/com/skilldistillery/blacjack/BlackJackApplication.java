@@ -18,20 +18,24 @@ public class BlackJackApplication {
 	}
 
 	public void run() {
-6		greeting();
+		greeting();
 		setup();
 
 	}
 
 	public void greeting() {
-		System.out.println("Hello welcome to the casino");
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		System.out.println("$                                $");
+		System.out.println("$  Hello welcome to the casino   $");
+		System.out.println("$                                $");
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 	}
 
 	public void setup() {
 		startGame();
 
-		System.out.println("player : " + player.getHand());
-		System.out.println("dealer : " + "[face-down, " + dealer.getHand().getCards().get(1) + "]");
+		System.out.println("player : " + player.getHand() + " player total : " + player.getHandValue());
+		System.out.println("dealer : " + "[face-down, " + dealer.getHand().getCards().get(1) + "]\n");
 
 		if (isBlackJack(player)) {
 			playAgain();
@@ -40,11 +44,9 @@ public class BlackJackApplication {
 		if (isBlackJack(dealer)) {
 			playAgain();
 		}
-		cardTotals();
 		playerTurn();
 		dealerTurn();
 		System.out.println("dealer : " + dealer.getHand());
-		System.out.println("Dealer total : " + dealer.getHandValue());
 		if (player.getPlayerHand().isBust()) {
 			System.out.println("You busted!");
 			playAgain();
@@ -144,6 +146,5 @@ public class BlackJackApplication {
 	}
 	public void cardTotals() {
 		System.out.println("Player total : " + player.getHandValue());
-		System.out.println("Dealer total : " + dealer.getHandValue());
 	}
 }

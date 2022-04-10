@@ -12,13 +12,6 @@ public class Dealer extends Player{
 		deck.shuffle();
 	}
 
-//	public void addCardToHand(Card card) {
-//		dealerHand.addCard(card);
-//	}
-//	public int getHandValue(){
-//		return dealerHand.getHandValue();
-//				
-//	}
 
 	public Card dealCard() {
 		return deck.dealCard();

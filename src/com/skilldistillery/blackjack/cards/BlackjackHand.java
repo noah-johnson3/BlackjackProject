@@ -14,7 +14,7 @@ public class BlackjackHand extends Hand {
 
 	public int isBlackjack() {
 		int sum = 0;
-		for(int i = 0; i < cards.size(); i++) {
+		for (int i = 0; i < cards.size(); i++) {
 			sum += cards.get(i).getValue();
 		}
 		return sum;
